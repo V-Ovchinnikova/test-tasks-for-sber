@@ -1,0 +1,11 @@
+DECLARE @d DATE = GETDATE();
+
+WITH cte AS (
+  SELECT 1 AS n
+  UNION ALL
+  SELECT n + 1
+  FROM cte
+  WHERE n < 100
+)
+SELECT DATEADD(d, ABS(CHECKSUM(NEWID())) % 6 + 2, @d) AS Rand_date
+FROM cte;
